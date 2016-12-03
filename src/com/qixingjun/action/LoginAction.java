@@ -22,10 +22,7 @@ public class LoginAction{
         UserBean userBean = new UserBean();
         userBean.setUserName(req.getParameter("username"));
         userBean.setPassWord(req.getParameter("password"));
-        System.out.println(req.getParameter("username"));
-        System.out.println(req.getParameter("password"));
         if (loginService.findUser(userBean)){
-
             return "success";
         }else{
             return "fail";

@@ -18,7 +18,7 @@ import java.util.Map;
  * @MyBlog www.qixingjun.tech
  * @Version 1.0.0
  * @Date 2016/12/2
- * @Description 创建解析XML的类文件
+ * @Description 解析XML文件
  */
 public class ParseXml {
     private Map<String,ActionXmlBean> allActions;
