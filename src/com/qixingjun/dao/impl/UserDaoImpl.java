@@ -14,8 +14,7 @@ import java.sql.*;
  */
 public class UserDaoImpl implements IUserDao {
     @Override
-    public String findUser(String userName) {
-        String psw = null;
+    public Boolean findUser(UserBean userBean) {
         Connection con =null;
         PreparedStatement pstmt =null;
         ResultSet rs = null;
@@ -26,17 +25,16 @@ public class UserDaoImpl implements IUserDao {
             String password ="root";
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
-            String sql = "select * from t_user where username=?";
+            String sql = "select * from t_user where username=? AND password=?";
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, userName);
+            pstmt.setString(1,userBean.getUserName());
+            pstmt.setString(2,userBean.getPassWord());
             rs = pstmt.executeQuery();
             if(rs==null){
-                return null;
+                return false;
             }
             if(rs.next()){
-                psw=rs.getString("password");
-            }else{
-                psw=null;
+                return true;
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -50,6 +48,6 @@ public class UserDaoImpl implements IUserDao {
             catch (SQLException e) {
             }
         }
-        return psw;
+        return false;
     }
 }

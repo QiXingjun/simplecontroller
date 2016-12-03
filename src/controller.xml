@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<action-controller>
+    <action>
+        <name>login</name>
+        <class>
+            <name>com.qixingjun.action.LoginAction</name>
+            <method>login</method>
+        </class>
+        <result>
+            <name>fail</name>
+            <type>forward</type>
+            <value>jsp/login_fail.jsp</value>
+        </result>
+        <result>
+            <name>success</name>
+            <type>forward</type>
+            <value>jsp/login_success.jsp</value>
+        </result>
+    </action>
+</action-controller>

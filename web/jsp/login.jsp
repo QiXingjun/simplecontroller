@@ -14,7 +14,8 @@
 </head>
 <body>
     <div style="width:30%">
-        <form action="/loginController" method="post" align="center" class="form-signin">
+        <%--<form action="/loginController.jsp" method="post" align="center" class="form-signin">--%>
+        <form action="/login.scaction" method="post" align="center" class="form-signin">
             <h2 align="center">登  录</h2>
             <input type="text" class="form-control" name="username" placeholder="UserName" required autofocus><br>
             <input type="password" class="form-control" name="password" placeholder="Password" required><br>

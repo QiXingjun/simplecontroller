@@ -1,6 +1,7 @@
 package com.qixingjun.service.impl;
 
 import com.qixingjun.dao.impl.UserDaoImpl;
+import com.qixingjun.pojo.UserBean;
 import com.qixingjun.service.ILoginService;
 
 /**
@@ -8,12 +9,12 @@ import com.qixingjun.service.ILoginService;
  * @MyBlog www.qixingjun.tech
  * @Version 1.0.0
  * @Date 2016/11/26
- * @Description 登录接口的实现
+ * @Description  登录接口的实现
  */
 public class LoginServiceImpl implements ILoginService {
     @Override
-    public String findUser(String userName) {
+    public Boolean findUser(UserBean userBean) {
         UserDaoImpl userDaoImpl = new UserDaoImpl();
-        return userDaoImpl.findUser(userName);
+        return userDaoImpl.findUser(userBean);
     }
 }

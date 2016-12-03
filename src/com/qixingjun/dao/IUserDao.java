@@ -1,5 +1,7 @@
 package com.qixingjun.dao;
 
+import com.qixingjun.pojo.UserBean;
+
 /**
  * @Author XingJun Qi
  * @MyBlog www.qixingjun.tech
@@ -8,5 +10,5 @@ package com.qixingjun.dao;
  * @Description 根据用户名来查找用户的密码
  */
 public interface IUserDao {
-    String findUser(String userName);
+    Boolean findUser(UserBean userBean);
 }

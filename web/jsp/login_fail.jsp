@@ -12,6 +12,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>Sorry！登录失败！</h2>
+<h2>用户名或密码错误！登录失败！</h2>
 </body>
 </html>
