@@ -11,6 +11,10 @@ public class UserBean {
     private String userName;
     private String passWord;
 
+    public UserBean() {
+    }
+
+
     public String getUserName() {
         return userName;
     }

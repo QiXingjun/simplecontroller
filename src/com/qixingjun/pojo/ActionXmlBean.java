@@ -11,14 +11,27 @@ import java.util.Map;
  * @Description 封装action节点
  */
 public class ActionXmlBean {
+    //拦截器的名称
+    private  String interceptorName;
     // 请求路径名称
     private String name;
     // 处理aciton类的全名
-     private String className;
+    private String className;
     // 处理方法
     private String method;
     // 结果视图集合
-     private Map<String,ResultXmlBean> results;
+    private Map<String,ResultXmlBean> results;
+
+    public ActionXmlBean() {
+    }
+
+    public String getInterceptorName() {
+        return interceptorName;
+    }
+
+    public void setInterceptorName(String interceptorName) {
+        this.interceptorName = interceptorName;
+    }
 
     public Map<String, ResultXmlBean> getResults() {
         return results;

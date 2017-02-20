@@ -1,9 +1,9 @@
 package com.qixingjun.util;
 
 import com.qixingjun.pojo.ActionXmlBean;
+import com.qixingjun.pojo.InterceptorXmlBean;
 import com.qixingjun.pojo.ResultXmlBean;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -22,9 +22,11 @@ import java.util.Map;
  */
 public class ParseXml {
     private Map<String,ActionXmlBean> allActions;
+    private Map<String,InterceptorXmlBean> allInterceptors;
 
     public ParseXml(){
-        allActions = new HashMap<String, ActionXmlBean>();
+        allActions = new HashMap<>();
+        allInterceptors = new HashMap<>();
         this.init();
     }
 
@@ -39,7 +41,18 @@ public class ParseXml {
         return actionXmlBean;
     }
 
-    // 初始化allActions集合
+    public InterceptorXmlBean getInterceptor(String InterceptorName){
+        if (InterceptorName==null) {
+            throw new RuntimeException("传入参数有误，请查看配置文件配置路径");
+        }
+        InterceptorXmlBean interceptorXmlBean = allInterceptors.get(InterceptorName);
+        if (interceptorXmlBean==null) {
+            throw new RuntimeException("在配置文件中找不到路径");
+        }
+        return interceptorXmlBean;
+    }
+
+    // 初始化allActions和allInterceptor集合
     private void init(){
         //读取配置文件
         try {
@@ -53,18 +66,22 @@ public class ParseXml {
             //3.获取根
             Element root = doc.getRootElement();
 
-            //4.得到所有的action子节点
+            //4.1得到所有的action子节点
             List<Element> listActions = root.elements("action");
 
-            //5.遍历，封装
+            //4.2得到所有的interceptor子节点
+            List<Element> listInterceptors = root.elements("interceptor");
+
+            //5.1遍历，封装 action下的节点
             for (Element ele_action : listActions) {
                 ActionXmlBean actionXmlBean = new ActionXmlBean();
+                actionXmlBean.setInterceptorName(ele_action.element("interceptor-ref").getText());
                 actionXmlBean.setName(ele_action.element("name").getText());
                 actionXmlBean.setClassName(ele_action.element("class").element("name").getText());
                 actionXmlBean.setMethod(ele_action.element("class").element("method").getText());
 
                 //封装当前aciton节点下的results
-                HashMap<String, ResultXmlBean> results = new HashMap<String, ResultXmlBean>();
+                HashMap<String, ResultXmlBean> results = new HashMap<>();
 
                 //得到当前action节点下所有的result子节点
                 Iterator<Element> iterator = ele_action.elementIterator("result");
@@ -80,6 +97,15 @@ public class ParseXml {
                 }
                 actionXmlBean.setResults(results);
                 allActions.put(actionXmlBean.getName(), actionXmlBean);
+            }
+
+            //5.2遍历，封装 interceptor下的节点
+            for (Element ele_interceptor : listInterceptors) {
+                InterceptorXmlBean interceptorXmlBean = new InterceptorXmlBean();
+                interceptorXmlBean.setName(ele_interceptor.element("name").getText());
+                interceptorXmlBean.setClassName(ele_interceptor.element("class").element("name").getText());
+                interceptorXmlBean.setMethod(ele_interceptor.element("class").element("method").getText());
+                allInterceptors.put(interceptorXmlBean.getName(), interceptorXmlBean);
             }
         } catch (Exception e) {
             e.printStackTrace();

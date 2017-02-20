@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <action-controller>
+    <interceptor>
+        <name>logWriter</name>
+        <class>
+            <name>com.qixingjun.interceptor.LogWriter</name>
+            <method>log</method>
+        </class>
+    </interceptor>
+
     <action>
         <name>login</name>
         <class>
-            <name>com.qixingjun.action.LoginAction</name>
+            <name>com.qixingjun.action.impl.LoginActionImpl</name>
             <method>login</method>
         </class>
+        <interceptor-ref>
+            <name>logWriter</name>
+        </interceptor-ref>
         <result>
             <name>fail</name>
             <type>forward</type>
@@ -14,7 +25,7 @@
         <result>
             <name>success</name>
             <type>forward</type>
-            <value>jsp/login_success.jsp</value>
+            <value>jsp/success_view.xml</value>
         </result>
     </action>
 </action-controller>

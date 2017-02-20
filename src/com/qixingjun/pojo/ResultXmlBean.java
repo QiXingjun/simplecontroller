@@ -15,6 +15,9 @@ public class ResultXmlBean {
     // 跳转的页面
     private String page;
 
+    public ResultXmlBean() {
+    }
+
     public String getName() {
         return name;
     }
